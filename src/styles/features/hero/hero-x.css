@@ -1,0 +1,83 @@
+.hero-px-scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  --spread-x: 1;
+  --spread-y: 1;
+
+  /* never taller than the viewport */
+  height: min(760px, 80vw, 90svh);
+  min-height: 360px;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+/* tilt: whole stage rotates in 3D (driven by gsap) */
+.hero-px-stage {
+  position: relative;
+  width: min(1000px, 92%);
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* depth + parallax shift are applied by gsap on this element */
+.hero-px-layer {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* slow in-place drift is applied by gsap on this element */
+.hero-px-drift {
+  will-change: transform;
+}
+
+.hero-px-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 16px rgb(0 0 0 / 8%))
+    drop-shadow(0 3px 5px rgb(0 0 0 / 5%));
+}
+
+/* main image: centred, largest */
+.hero-px-main {
+  /* 4:3 image, centred on the stage */
+  --main-size: clamp(300px, 56%, 600px);
+
+  left: 50%;
+  top: 50%;
+  width: var(--main-size);
+  margin-left: calc(var(--main-size) / -2);
+  margin-top: calc(var(--main-size) * -0.375);
+}
+
+.hero-px-main .hero-px-img {
+  filter: drop-shadow(0 22px 22px rgb(0 0 0 / 8%))
+    drop-shadow(0 5px 8px rgb(0 0 0 / 5%));
+}
+
+/* soft ground ellipse behind everything */
+.hero-px-shadow {
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  width: 60%;
+  height: 10%;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 7%);
+  filter: blur(18px);
+  transform: translate3d(-50%, 0, -100px);
+}
+
+@media (max-width: 768px) {
+  .hero-px-layer:not(.hero-px-main) {
+    scale: 0.7;
+  }
+}
