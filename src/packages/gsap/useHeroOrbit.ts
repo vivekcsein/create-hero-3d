@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import type { RefObject } from "react";
-import type { HeroOrbitConfig } from "@/packages/configs/hero-v.config";
+import type { HeroOrbitConfig } from "@/packages/configs/hero.config";
 
 const ITEM = "[data-orbit-item]";
 const FRONT_Z = 30; // above the main image
@@ -19,6 +19,7 @@ export function useHeroOrbit(
   scope: RefObject<HTMLElement | null>,
   config: HeroOrbitConfig,
   paused = false,
+  enabled = true,
 ) {
   const { duration, radiusX, radiusY, depthScale, startAngle, direction } =
     config;
@@ -26,7 +27,7 @@ export function useHeroOrbit(
   useGSAP(
     () => {
       const root = scope.current;
-      if (!root) return;
+      if (!root || !enabled) return;
 
       const items = gsap.utils.toArray<HTMLElement>(ITEM, root);
       if (!items.length) return;
@@ -82,7 +83,9 @@ export function useHeroOrbit(
     },
     {
       scope,
+      revertOnUpdate: true,
       dependencies: [
+        enabled,
         duration,
         radiusX,
         radiusY,

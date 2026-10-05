@@ -12,6 +12,8 @@ type Options = {
   tiltX: number;
   tiltY: number;
   follow: number;
+  /** false = no tilt / pointer shift (depth + drift still apply) */
+  pointer?: boolean;
 };
 
 const num = (value: string | undefined, fallback = 0) => {
@@ -31,7 +33,7 @@ const num = (value: string | undefined, fallback = 0) => {
  */
 export function useHeroParallax(
   scope: RefObject<HTMLElement | null>,
-  { tiltX, tiltY, follow }: Options,
+  { tiltX, tiltY, follow, pointer: usePointer = true }: Options,
 ) {
   useGSAP(
     () => {
@@ -89,7 +91,7 @@ export function useHeroParallax(
             });
           });
 
-          if (!pointer) return;
+          if (!pointer || !usePointer) return;
 
           // pointer parallax
           const quick = { duration: follow, ease: "power3.out" };
@@ -131,6 +133,10 @@ export function useHeroParallax(
 
       return () => mm.revert();
     },
-    { scope, dependencies: [tiltX, tiltY, follow] },
+    {
+      scope,
+      revertOnUpdate: true,
+      dependencies: [tiltX, tiltY, follow, usePointer],
+    },
   );
 }
