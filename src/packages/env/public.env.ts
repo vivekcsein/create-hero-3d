@@ -55,9 +55,9 @@ const parsedEnvSchema = z.object({
     .default("https://www.linkedin.com/company/frenzz/"),
 
   // Author
-  NEXT_PUBLIC_AUTHOR_NAME: z.string().trim().min(1).default("frenzzofficial"),
+  NEXT_PUBLIC_AUTHOR_NAME: z.string().trim().min(1).default("vivekcsein"),
 
-  NEXT_PUBLIC_AUTHOR_HANDLE: z.string().trim().min(1).default("frenzzofficial"),
+  NEXT_PUBLIC_AUTHOR_HANDLE: z.string().trim().min(1).default("vivekcsein"),
 
   NEXT_PUBLIC_AUTHOR_EMAIL: z.email().default("contact@frenzz.in"),
 
