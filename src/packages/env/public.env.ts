@@ -31,7 +31,7 @@ const parsedEnvSchema = z.object({
   NEXT_PUBLIC_OG_IMAGE_URL: z.string().trim().optional(),
 
   // Theme
-  NEXT_PUBLIC_ACTIVE_STYLE: z.enum(STYLES_THEME_NAMES).default("stone-theme"),
+  NEXT_PUBLIC_ACTIVE_STYLE: z.enum(STYLES_THEME_NAMES).default("violet-theme"),
 
   // Theme
   NEXT_PUBLIC_ACTIVE_THEME: z
